@@ -25,3 +25,7 @@
     fi
     echo -e "$(checkbox "$1") ${Bold}$2${Reset} ${state}"
   } #}}}
+  checkbox() { #{{{
+    #display [X] or [ ]
+    [[ "$1" -eq 1 ]] && echo -e "${BBlue}[${Reset}${Bold}X${BBlue}]${Reset}" || echo -e "${BBlue}[ ${BBlue}]${Reset}";
+  } #}}}
