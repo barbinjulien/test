@@ -24,6 +24,26 @@ else
   exit 1
 fi
 
+#DONESETUP {{{
+donesetup(){
+  print_title "SETUP DONE"
+  exit 0
+}
+#}}}
+#FINISH {{{
+finish(){
+  print_title "INSTALL COMPLETED"
+  #COPY AUI TO ROOT FOLDER IN THE NEW SYSTEM
+  print_warning "\nA copy of the AUI will be placed in /root directory of your new system"
+  cp -R `pwd` ${MOUNTPOINT}/root
+  read_input_text "Reboot system"
+  if [[ $OPTION == y ]]; then
+    umount_partitions
+    reboot
+  fi
+  exit 0
+}
+#}}}
 
 print_title "https://wiki.archlinux.org/index.php/Arch_Install_Scripts"
 print_info "The Arch Install Scripts are a set of Bash scripts that simplify Arch installation."
@@ -112,7 +132,8 @@ do
         checklist[13]=1
         ;;
       "d")
-        finish
+      	donesetup
+        #finish
         ;;
       *)
         invalid_option
